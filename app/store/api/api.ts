@@ -6,6 +6,11 @@ const rawBaseQuery = fetchBaseQuery({
   timeout: 60000,
   credentials: 'include',
   redirect: 'manual',
+  prepareHeaders: (headers, { getState }) => {
+    headers.set('X-Client-Type', 'WEB');
+
+    return headers;
+  }
 });
 
 const dynamicBaseQuery: BaseQueryFn<FetchArgs & { mock?: boolean; mockRequestTime?: number }, unknown, FetchBaseQueryError> =
@@ -14,11 +19,13 @@ const dynamicBaseQuery: BaseQueryFn<FetchArgs & { mock?: boolean; mockRequestTim
 
     // use real api
     const baseUrl = env.VITE_API_URL;
-    const adjustedUrl = `${baseUrl}${basePath}`;
+    const adjustedUrl = `${ baseUrl }${ basePath }`;
     return rawBaseQuery({ ...args, url: adjustedUrl }, api, extraOptions);
   };
 export const api = createApi({
   reducerPath: 'api',
   baseQuery: dynamicBaseQuery,
-  endpoints: () => ({}),
+  endpoints: () => (
+    {}
+  )
 });

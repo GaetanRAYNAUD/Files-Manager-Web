@@ -19,5 +19,6 @@ export const usersApi = api.injectEndpoints?.({
 });
 
 export const {
-  useGetProfileQuery
+  useGetProfileQuery,
+  useLazyGetProfileQuery
 } = usersApi;

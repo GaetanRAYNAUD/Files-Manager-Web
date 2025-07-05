@@ -23,7 +23,8 @@
     "react-dom": "^19.1.0",
     "react-intl": "^7.1.11",
     "react-redux": "^9.2.0",
-    "react-router": "^7.5.3"
+    "react-router": "^7.5.3",
+    "zod": "^3.25.67"
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.8",

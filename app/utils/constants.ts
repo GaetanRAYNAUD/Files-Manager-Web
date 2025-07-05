@@ -1,0 +1,1 @@
+export const OAUTH_STATE = 'oauth_state';

@@ -1,4 +1,4 @@
-import { ThemeProvider } from '@mui/material';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
 import { Outlet } from 'react-router';
@@ -13,6 +13,7 @@ export default function App() {
     <Provider store={ store }>
       <IntlProvider locale={ locale } messages={ getMessages(locale) } defaultLocale={ DEFAULT_LOCALE }>
         <ThemeProvider theme={ theme }>
+          <CssBaseline />
           <Outlet />
         </ThemeProvider>
       </IntlProvider>
