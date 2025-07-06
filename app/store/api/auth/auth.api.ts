@@ -1,5 +1,5 @@
 import { api } from '~/store/api/api';
-import type { AuthTokenDto, AuthTokensDto } from '~/store/api/auth/auth.type';
+import type { AuthTokenRequestDto, AuthTokensDto } from '~/store/api/auth/auth.type';
 import { endpoints } from '~/store/api/endpoints';
 
 export const authApi = api.injectEndpoints?.({
@@ -21,45 +21,13 @@ export const authApi = api.injectEndpoints?.({
           }
         )
       }),
-      loginDiscord: builder.mutation<AuthTokensDto, void>({
-        query: () => (
+      login: builder.mutation<AuthTokensDto, AuthTokenRequestDto>({
+        query: ({ token, provider }) => (
           {
-            url: endpoints.public.login.discord,
-            method: 'POST'
-          }
-        )
-      }),
-      loginGithub: builder.mutation<AuthTokensDto, void>({
-        query: () => (
-          {
-            url: endpoints.public.login.github,
-            method: 'POST'
-          }
-        )
-      }),
-      loginTwitch: builder.mutation<AuthTokensDto, void>({
-        query: () => (
-          {
-            url: endpoints.public.login.twitch,
-            method: 'POST'
-          }
-        )
-      }),
-      loginAmazon: builder.mutation<AuthTokensDto, void>({
-        query: () => (
-          {
-            url: endpoints.public.login.amazon,
-            method: 'POST'
-          }
-        )
-      }),
-      loginGoogle: builder.mutation<AuthTokensDto, AuthTokenDto>({
-        query: ({ token }) => (
-          {
-            url: endpoints.public.login.google,
+            url: endpoints.public.login.exchangeToken(provider),
             method: 'POST',
-            headers: {
-              'X-Id-Token': token
+            body: {
+              token
             }
           }
         )
@@ -71,9 +39,6 @@ export const authApi = api.injectEndpoints?.({
 
 export const {
   useRefreshMutation,
-  useLoginAmazonMutation,
-  useLoginGoogleMutation,
-  useLoginDiscordMutation,
-  useLoginGithubMutation,
-  useLoginTwitchMutation
+  useLoginMutation,
+  useLogoutMutation
 } = authApi;

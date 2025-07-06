@@ -1,0 +1,29 @@
+import { Card, CardContent, CardHeader, Container, Grid } from '@mui/material';
+import React, { type FC } from 'react';
+import { oidcConfigs } from '~/auth/auth.types';
+import { LoginButton } from '~/components/buttons/LoginButton';
+
+export const LoginCard: FC = () => {
+  return (
+    <Container maxWidth='sm'>
+      <Card>
+        <CardHeader title='Home' />
+        <CardContent>
+          <Grid container spacing={ 1 }>
+            {
+              Object.entries(oidcConfigs).map(([provider, config]) => {
+                const IconComponent = config.icon;
+
+                return (
+                  <Grid key={ `login-button-${ provider }` } size={ 6 }>
+                    <LoginButton provider={ provider } icon={ <IconComponent /> } label={ config.label } />
+                  </Grid>
+                );
+              })
+            }
+          </Grid>
+        </CardContent>
+      </Card>
+    </Container>
+  );
+};

@@ -1,7 +1,10 @@
+import type { SupportedProvider } from '~/auth/auth.types';
+
 export interface AuthTokensDto {
-  expiresIn: number;
+  expires_in: number;
 }
 
-export interface AuthTokenDto {
+export interface AuthTokenRequestDto {
   token: string;
+  provider: SupportedProvider;
 }
