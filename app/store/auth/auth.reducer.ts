@@ -4,6 +4,7 @@ import { EXPIRES } from '~/utils/constants';
 
 export interface AuthState {
   expires?: Date;
+  refreshing: boolean;
 }
 
 const getValidExpiresFromStorage = (): Date | undefined => {
@@ -33,14 +34,26 @@ const getValidExpiresFromStorage = (): Date | undefined => {
 };
 
 const initialState: AuthState = {
-  expires: getValidExpiresFromStorage()
+  expires: getValidExpiresFromStorage(),
+  refreshing: false
 };
 
 export const authReducer = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+  },
   extraReducers: (builder) => {
+    builder.addMatcher(
+      isAnyOf(
+        authApi.endpoints.refresh.matchPending,
+        authApi.endpoints.login.matchPending
+      ),
+      (state) => {
+        console.log('pending');
+        state.refreshing = true;
+      }
+    );
     builder.addMatcher(
       isAnyOf(
         authApi.endpoints.refresh.matchFulfilled,
@@ -49,6 +62,7 @@ export const authReducer = createSlice({
       (state, { payload }) => {
         const expires = new Date(Date.now() + payload.expires_in * 1000);
         state.expires = expires;
+        state.refreshing = false;
         localStorage.setItem(EXPIRES, expires.getTime().toString());
       }
     );
@@ -59,11 +73,11 @@ export const authReducer = createSlice({
         authApi.endpoints.login.matchRejected
       ),
       (state) => {
+        console.log('rejected');
         state.expires = undefined;
+        state.refreshing = false;
         localStorage.removeItem(EXPIRES);
       }
     );
   }
 });
-
-export const { loginInitiated } = authReducer.actions;

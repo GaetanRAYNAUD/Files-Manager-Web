@@ -6,7 +6,7 @@ import { useLoginMutation } from '~/store/api/auth/auth.api';
 
 import type { Route } from './+types/Oidc';
 
-const OAuth: FC<Route.ComponentProps> = ({ params }) => {
+const Oidc: FC<Route.ComponentProps> = ({ params }) => {
   const navigate = useNavigate();
   const { id } = params;
   const { search } = useLocation();
@@ -15,7 +15,9 @@ const OAuth: FC<Route.ComponentProps> = ({ params }) => {
   const [login, { isSuccess }] = useLoginMutation();
 
   useEffect(() => {
-    login({ token: code, provider: id as SupportedProvider });
+    if (code && id) {
+      login({ token: code, provider: id as SupportedProvider });
+    }
   }, [code, id, login]);
 
   useEffect(() => {
@@ -29,4 +31,4 @@ const OAuth: FC<Route.ComponentProps> = ({ params }) => {
   );
 };
 
-export default OAuth;
+export default Oidc;

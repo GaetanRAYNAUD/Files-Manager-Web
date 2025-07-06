@@ -1,14 +1,14 @@
 import React, { type FC } from 'react';
 import { HomeCard } from '~/components/home/HomeCard';
 import { LoginCard } from '~/components/login/LoginCard';
-import { selectAuthExpires } from '~/store/auth/auth.selector';
 import { useAppSelector } from '~/store/hooks';
+import { selectProfile } from '~/store/user/user.selector';
 
 const Home: FC = () => {
-  const expires = useAppSelector(selectAuthExpires);
+  const profile = useAppSelector(selectProfile);
 
   return (
-    expires ? <HomeCard /> : <LoginCard />
+    profile ? <HomeCard /> : <LoginCard />
   );
 };
 
