@@ -59,6 +59,11 @@ const baseTheme = createTheme({
         }
       })
     }
+  },
+  custom: {
+    header: {
+      height: 64
+    }
   }
 });
 

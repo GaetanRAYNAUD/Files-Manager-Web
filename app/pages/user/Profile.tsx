@@ -7,14 +7,12 @@ import { selectProfile } from '~/store/user/user.selector';
 const Home: FC = () => {
   const profile = useAppSelector(selectProfile);
 
-  console.log('profile', profile);
-
   return (
     !profile ?
       <AbsoluteLoader />
       :
       <Container maxWidth='sm'>
-        Bonjour
+        Profile de
         { ' ' }
         { profile.name }
       </Container>
