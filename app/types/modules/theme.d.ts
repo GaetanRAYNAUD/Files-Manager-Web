@@ -6,6 +6,12 @@ declare module '@mui/material/styles' {
       header: {
         height: number;
       };
+      background: {
+        secondary: {
+          default: string;
+          hover: string;
+        };
+      }
     };
   }
 
@@ -14,6 +20,12 @@ declare module '@mui/material/styles' {
       header?: {
         height?: number;
       };
+      background?: {
+        secondary?: {
+          default?: string;
+          hover?: string;
+        };
+      }
     };
   }
 }

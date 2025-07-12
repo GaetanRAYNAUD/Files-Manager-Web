@@ -1,4 +1,5 @@
-import { AppBar, Avatar, Grid, IconButton, styled, Tooltip } from '@mui/material';
+import { Search as SearchIcon } from '@mui/icons-material';
+import { AppBar, Avatar, Box, Grid, IconButton, InputBase, styled, Tooltip } from '@mui/material';
 import React, { type FC } from 'react';
 import type { ProfileDto } from '~/store/api/user/user.type';
 import { useAppSelector } from '~/store/hooks';
@@ -60,19 +61,28 @@ export const Header: FC = () => {
         <IconButton href='/' disableRipple>
           <LogoAvatar src='/logo.png' variant='square' />
         </IconButton>
-        <SearchBar>
-          <SearchIconWrapper>
-            <Search />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder='Search…' inputProps={ { 'aria-label': 'search' } }
-          />
-        </SearchBar>
-        <IconButton href='/profile' disableRipple>
-          <Tooltip title={ profile?.name }>
-            <ProfileAvatar { ...profileToAvatar(profile) } />
-          </Tooltip>
-        </IconButton>
+        {
+          profile &&
+          (
+            <>
+              <SearchWrapper>
+                <Search>
+                  <SearchIconWrapper>
+                    <SearchIcon />
+                  </SearchIconWrapper>
+                  <StyledInputBase
+                    placeholder='Rechercher…' inputProps={ { 'aria-label': 'search' } }
+                  />
+                </Search>
+              </SearchWrapper>
+              <IconButton href='/profile' disableRipple>
+                <Tooltip title={ profile?.name }>
+                  <ProfileAvatar { ...profileToAvatar(profile) } />
+                </Tooltip>
+              </IconButton>
+            </>
+          )
+        }
       </Wrapper>
     </StyledAppBar>
   );
@@ -81,19 +91,18 @@ export const Header: FC = () => {
 const StyledAppBar = styled(AppBar)(({ theme }) => (
   {
     justifyContent: 'center',
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.paper,
     position: 'fixed',
     height: theme.custom.header.height
   }
 ));
 
-const Wrapper = styled(Grid)(({ theme }) => (
-  {
-    flexGrow: 1,
-    alignContent: 'center',
-    justifyContent: 'space-between'
-  }
-));
+const Wrapper = styled(Grid)`
+    flex-grow: 1;
+    align-content: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+`;
 
 const LogoAvatar = styled(Avatar)`
     height: 50px;
@@ -105,19 +114,49 @@ const ProfileAvatar = styled(Avatar)`
     width: 50px;
 `;
 
-const SearchBar = styled('div')(({ theme }) => (
+const SearchWrapper = styled(Box)`
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+const Search = styled('div')(({ theme }) => (
   {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    backgroundColor: theme.custom.background.secondary.default,
     '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25)
+      backgroundColor: theme.custom.background.secondary.hover
     },
-    marginLeft: 0,
-    width: '100%',
+    margin: theme.spacing(0, 2),
+    width: '90%',
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
-      width: 'auto'
+      width: '50%'
+    }
+  }
+));
+
+const SearchIconWrapper = styled('div')(({ theme }) => (
+  {
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => (
+  {
+    color: 'inherit',
+    width: '100%',
+    '& .MuiInputBase-input': {
+      padding: theme.spacing(1, 1, 1, 0),
+      paddingLeft: `calc(1em + ${ theme.spacing(4) })`,
+      transition: theme.transitions.create('width')
     }
   }
 ));

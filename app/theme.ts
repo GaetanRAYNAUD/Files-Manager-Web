@@ -61,6 +61,12 @@ const baseTheme = createTheme({
     }
   },
   custom: {
+    background: {
+      secondary: {
+        default: '#ffffff26',
+        hover: '#ffffff40'
+      }
+    },
     header: {
       height: 64
     }
