@@ -17,6 +17,7 @@ const RootLayout: React.FC = () => {
 const Container = styled('div')`
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
 `;
 
 const Main = styled('div')(({ theme }) => (
@@ -24,7 +25,9 @@ const Main = styled('div')(({ theme }) => (
     display: 'flex',
     flex: 1,
     flexDirection: 'row',
-    marginTop: theme.custom.header.height
+    justifyContent: 'center',
+    marginTop: theme.custom.header.height,
+    padding: theme.spacing(1)
   }
 ));
 

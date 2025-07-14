@@ -51,13 +51,6 @@ const baseTheme = createTheme({
           color: '#ffffff'
         }
       }
-    },
-    MuiCssBaseline: {
-      styleOverrides: (themeParam) => ({
-        body: {
-          margin: themeParam.spacing(1)
-        }
-      })
     }
   },
   custom: {
