@@ -12,7 +12,7 @@ const Home: FC = () => {
       <AbsoluteLoader />
       :
       <Container maxWidth='sm'>
-        Profile de
+        Profil de
         { ' ' }
         { profile.name }
       </Container>
