@@ -63,8 +63,7 @@ const baseTheme = createTheme({
   custom: {
     background: {
       secondary: {
-        default: '#ffffff26',
-        hover: '#ffffff40'
+        default: '#e5e5e5'
       }
     },
     header: {

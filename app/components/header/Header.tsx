@@ -1,6 +1,7 @@
-import { Search as SearchIcon } from '@mui/icons-material';
-import { AppBar, Avatar, Box, Grid, IconButton, InputBase, styled, Tooltip } from '@mui/material';
-import React, { type FC } from 'react';
+import { AppBar, Avatar, Grid, IconButton, styled, Tooltip } from '@mui/material';
+import React, { type FC, useState } from 'react';
+import { HeaderSearchbar } from '~/components/header/HeaderSearchBar';
+import { useSearchFsQuery } from '~/store/api/node/fs.api';
 import type { ProfileDto } from '~/store/api/user/user.type';
 import { useAppSelector } from '~/store/hooks';
 import { selectProfile } from '~/store/user/user.selector';
@@ -54,6 +55,13 @@ function profileToAvatar(profile: ProfileDto | undefined) {
 
 export const Header: FC = () => {
   const profile = useAppSelector(selectProfile);
+  const [inputValue, setInputValue] = useState<string>('');
+  const [searchTerm, setSearchTerm] = useState<string>('');
+
+  const { data: results, isLoading, error } = useSearchFsQuery(
+    { q: searchTerm },
+    { skip: !searchTerm }
+  );
 
   return (
     <StyledAppBar elevation={ 0 }>
@@ -65,16 +73,7 @@ export const Header: FC = () => {
           profile &&
           (
             <>
-              <SearchWrapper>
-                <Search>
-                  <SearchIconWrapper>
-                    <SearchIcon />
-                  </SearchIconWrapper>
-                  <StyledInputBase
-                    placeholder='Rechercher…' inputProps={ { 'aria-label': 'search' } }
-                  />
-                </Search>
-              </SearchWrapper>
+              <HeaderSearchbar />
               <IconButton href='/profile' disableRipple>
                 <Tooltip title={ profile?.name }>
                   <ProfileAvatar { ...profileToAvatar(profile) } />
@@ -113,50 +112,3 @@ const ProfileAvatar = styled(Avatar)`
     height: 50px;
     width: 50px;
 `;
-
-const SearchWrapper = styled(Box)`
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`;
-
-const Search = styled('div')(({ theme }) => (
-  {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: theme.custom.background.secondary.default,
-    '&:hover': {
-      backgroundColor: theme.custom.background.secondary.hover
-    },
-    margin: theme.spacing(0, 2),
-    width: '90%',
-    [theme.breakpoints.up('sm')]: {
-      width: '50%'
-    }
-  }
-));
-
-const SearchIconWrapper = styled('div')(({ theme }) => (
-  {
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => (
-  {
-    color: 'inherit',
-    width: '100%',
-    '& .MuiInputBase-input': {
-      padding: theme.spacing(1, 1, 1, 0),
-      paddingLeft: `calc(1em + ${ theme.spacing(4) })`,
-      transition: theme.transitions.create('width')
-    }
-  }
-));

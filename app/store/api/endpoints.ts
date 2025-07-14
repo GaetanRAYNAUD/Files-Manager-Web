@@ -4,6 +4,7 @@ const ROOT = 'api';
 const PUBLIC = 'public';
 const USER = 'user';
 const AUTH = 'auth';
+const FS = 'fs';
 
 export const endpoints = {
   public: {
@@ -15,5 +16,8 @@ export const endpoints = {
   },
   users: {
     profile: `/${ ROOT }/${ USER }/profile`
+  },
+  fs: {
+    search: `/${ ROOT }/${ FS }`
   }
 };

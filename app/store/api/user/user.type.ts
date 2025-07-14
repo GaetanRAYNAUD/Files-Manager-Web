@@ -16,3 +16,9 @@ export interface ProfileDto {
   ssoConnections: SsoConnectionDto[];
   role: UserRole;
 }
+
+export interface UserDto {
+  id: string;
+  name: string;
+  image?: string;
+}
