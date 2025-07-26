@@ -9,7 +9,7 @@ const FS = 'fs';
 export const endpoints = {
   public: {
     login: {
-      exchangeToken: (provider: SupportedProvider) => `/${ PUBLIC }/${ AUTH }/exchange-token/${provider}`
+      exchangeToken: (provider: SupportedProvider) => `/${ PUBLIC }/${ AUTH }/exchange-token/${ provider }`
     },
     refresh: `/${ PUBLIC }/${ AUTH }/refresh`,
     logout: `/${ PUBLIC }/${ AUTH }/logout`
@@ -18,6 +18,7 @@ export const endpoints = {
     profile: `/${ ROOT }/${ USER }/profile`
   },
   fs: {
-    search: `/${ ROOT }/${ FS }`
+    search: `/${ ROOT }/${ FS }`,
+    download: (id: string, inline?: boolean) => `/${ ROOT }/${ FS }/download/${ id }${ inline ? '?inline=true' : '' }`,
   }
 };

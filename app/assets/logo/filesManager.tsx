@@ -1,24 +1,26 @@
+import { useTheme } from '@mui/material';
 import type { FC } from 'react';
 
 interface Props {
-  width?: string;
-  height?: string;
+  width?: string | number;
+  height?: string | number;
 }
 
-export const FilesManagerLogo: FC<Props> = ({ width = 32, height = 32 }) => {
+export const FilesManagerLogo: FC<Props> = ({ width = 64, height = 64 }) => {
+  const theme = useTheme();
   return (
     <svg
       version='1.0'
       xmlns='http://www.w3.org/2000/svg'
       width={ width }
       height={ height }
-      viewBox='0 0 300.000000 300.000000'
-      preserveAspectRatio='xMidYMid meet'
+      viewBox='65 90 165 130'
     >
       <g
         transform='translate(0.000000,300.000000) scale(0.100000,-0.100000)' fill='#4f914d' stroke='none'
       >
         <path
+          fill={theme.palette.background.default}
           d='M1475 2011 c-33 -16 -73 -43 -89 -60 -20 -21 -39 -31 -59 -31 -42 0
 -94 -28 -125 -67 -15 -18 -32 -33 -37 -33 -6 0 -19 15 -30 33 -10 17 -23 35
 -29 39 -6 4 -66 8 -133 8 -97 0 -125 -3 -137 -16 -14 -13 -16 -58 -16 -338 0
@@ -38,80 +40,96 @@ l23 -40 240 -2 c231 -3 240 -4 243 -23 3 -20 -2 -20 -301 -17 -280 3 -305 1
 5 772 2 776 -3z'
         />
         <path
+          fill={theme.palette.background.default}
           d='M885 1761 c-3 -5 -5 -72 -4 -148 2 -129 6 -139 22 -53 5 25 4 31 -3
 20 -7 -10 -8 8 -4 60 7 90 10 103 27 97 6 -2 21 0 32 6 11 5 56 13 100 17 79
 7 79 7 -42 9 -67 0 -124 -3 -128 -8z'
         />
         <path
+          fill={theme.palette.background.default}
           d='M1035 1638 c-25 -78 -65 -219 -65 -232 0 -10 5 -16 12 -14 14 5 90
 237 82 250 -8 12 -24 10 -29 -4z'
         />
         <path
+          fill={theme.palette.background.default}
           d='M945 1339 c-9 -42 10 -62 25 -25 14 38 13 56 -4 56 -8 0 -17 -14 -21
 -31z'
         />
         <path
+          fill={theme.palette.background.default}
           d='M850 1025 c0 -8 9 -15 20 -15 11 0 20 7 20 15 0 8 -9 15 -20 15 -11
 0 -20 -7 -20 -15z'
         />
         <path
+          fill={theme.palette.background.default}
           d='M922 958 c3 -77 5 -83 26 -86 22 -3 30 12 12 23 -5 3 -10 37 -10 76
 0 55 -3 69 -15 69 -13 0 -15 -14 -13 -82z'
         />
         <path
+          fill={theme.palette.background.default}
           d='M720 950 c0 -64 3 -80 15 -80 11 0 15 11 15 36 0 36 0 37 35 31 26
 -4 35 -2 35 9 0 9 -11 14 -35 14 -28 0 -35 4 -35 20 0 17 7 20 40 20 29 0 40
 4 40 15 0 12 -13 15 -55 15 l-55 0 0 -80z'
         />
         <path
+          fill={theme.palette.background.default}
           d='M1300 950 c0 -64 3 -80 15 -80 12 0 15 13 16 58 l1 57 20 -47 c11
 -27 26 -48 32 -48 6 0 21 22 33 48 l22 47 -2 -58 c-2 -48 1 -57 15 -57 15 0
 17 10 16 80 -2 71 -4 80 -20 80 -13 0 -26 -16 -42 -52 l-23 -53 -23 53 c-16
 36 -28 52 -41 52 -17 0 -19 -8 -19 -80z'
         />
         <path
+          fill={theme.palette.background.default}
           d='M850 930 c0 -47 3 -60 15 -60 12 0 15 13 15 60 0 47 -3 60 -15 60
 -12 0 -15 -13 -15 -60z'
         />
         <path
+          fill={theme.palette.background.default}
           d='M996 968 c-40 -57 12 -117 78 -92 28 11 18 26 -12 19 -20 -4 -33 -1
 -42 10 -11 13 -7 15 34 15 50 0 57 10 30 48 -10 14 -26 22 -44 22 -18 0 -34
 -8 -44 -22z m72 -15 c2 -9 -7 -13 -27 -13 -30 0 -39 9 -24 24 11 10 46 3 51
 -11z'
         />
         <path
+          fill={theme.palette.background.default}
           d='M1133 984 c-30 -13 -9 -58 30 -65 30 -6 18 -24 -14 -21 -21 1 -29 -2
 -27 -10 7 -21 70 -22 85 -2 16 22 1 51 -29 56 -12 2 -23 9 -26 17 -3 10 3 11
 28 6 25 -5 31 -4 28 6 -5 14 -53 22 -75 13z'
         />
         <path
+          fill={theme.palette.background.default}
           d='M1505 980 c-7 -11 -3 -12 34 -14 38 -2 37 -24 -1 -28 -29 -3 -33 -6
 -33 -33 0 -29 1 -30 52 -31 l52 -2 -6 47 c-3 25 -10 52 -16 59 -11 14 -73 16
 -82 2z m65 -65 c0 -19 -24 -30 -41 -19 -9 5 -7 11 6 21 24 17 35 17 35 -2z'
         />
         <path
+          fill={theme.palette.background.default}
           d='M1640 929 c0 -46 3 -59 15 -59 11 0 15 12 15 44 0 27 5 46 13 49 26
 9 37 -6 37 -49 0 -32 4 -44 15 -44 19 0 21 92 2 108 -7 6 -32 11 -55 10 l-42
 0 0 -59z'
         />
         <path
+          fill={theme.palette.background.default}
           d='M1785 980 c-7 -11 -3 -12 34 -14 38 -2 37 -24 -1 -28 -29 -3 -33 -6
 -33 -33 0 -29 1 -30 52 -31 l52 -2 -6 47 c-3 25 -10 52 -16 59 -11 14 -73 16
 -82 2z m63 -67 c-4 -22 -38 -30 -38 -10 0 14 13 24 33 26 5 1 7 -7 5 -16z'
         />
         <path
+          fill={theme.palette.background.default}
           d='M1926 971 c-40 -44 4 -118 55 -91 18 10 20 9 17 -7 -3 -14 -12 -18
 -42 -16 -51 3 -43 -21 9 -25 52 -5 65 15 65 94 l0 61 -44 1 c-30 1 -49 -4 -60
 -17z m62 -10 c8 -4 12 -19 10 -32 -2 -18 -9 -24 -28 -24 -28 0 -39 27 -20 50
 14 17 20 18 38 6z'
         />
         <path
+          fill={theme.palette.background.default}
           d='M2076 974 c-21 -20 -20 -68 0 -89 19 -19 75 -17 82 3 3 8 -6 12 -29
 10 -18 -2 -34 2 -36 10 -3 8 8 12 36 12 36 0 41 3 41 23 0 13 -5 28 -12 35
 -17 17 -64 15 -82 -4z m64 -19 c11 -13 8 -15 -19 -15 -30 0 -39 9 -24 23 11
 11 30 8 43 -8z'
         />
         <path
+          fill={theme.palette.background.default}
           d='M2200 930 c0 -46 3 -60 14 -60 10 0 16 14 18 43 2 35 7 43 26 45 12
 2 22 10 22 18 0 17 -36 19 -43 2 -4 -10 -6 -10 -6 0 -1 6 -8 12 -16 12 -12 0
 -15 -13 -15 -60z'

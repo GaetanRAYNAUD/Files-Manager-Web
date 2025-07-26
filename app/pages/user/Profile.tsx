@@ -1,5 +1,6 @@
 import { Container } from '@mui/material';
 import React, { type FC } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { AbsoluteLoader } from '~/components/AbsoluteLoader';
 import { useAppSelector } from '~/store/hooks';
 import { selectProfile } from '~/store/user/user.selector';
@@ -9,12 +10,10 @@ const Home: FC = () => {
 
   return (
     !profile ?
-      <AbsoluteLoader />
+      <AbsoluteLoader/>
       :
       <Container maxWidth='sm'>
-        Profil de
-        { ' ' }
-        { profile.name }
+        <FormattedMessage id='user.profileOf' values={ { name: profile.name } }/>
       </Container>
   );
 };

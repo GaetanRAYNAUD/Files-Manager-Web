@@ -4,7 +4,7 @@ export interface FsNodeDto {
   id: string;
   name: string;
   contentType: string;
-  size: number;
+  size?: number;
   owner: UserDto;
   creationDate: Date;
   createdBy: UserDto;
@@ -13,10 +13,10 @@ export interface FsNodeDto {
 }
 
 export enum SearchNodesSort {
-  CREATION_ASC = 'CREATION_ASC',
-  CREATION_DESC = 'CREATION_DESC',
-  MODIFICATION_ASC = 'MODIFICATION_ASC',
-  MODIFICATION_DESC = 'MODIFICATION_DESC',
+  CREATION_DATE_ASC = 'CREATION_DATE_ASC',
+  CREATION_DATE_DESC = 'CREATION_DATE_DESC',
+  MODIFICATION_DATE_ASC = 'MODIFICATION_DATE_ASC',
+  MODIFICATION_DATE_DESC = 'MODIFICATION_DATE_DESC',
   NAME_ASC = 'NAME_ASC',
   NAME_DESC = 'NAME_DESC'
 }
@@ -26,4 +26,9 @@ export interface FsNodeSearch {
   q?: string;
   page?: number;
   sort?: SearchNodesSort;
+}
+
+export interface FsNodeDownload {
+  id: string;
+  inline?: boolean;
 }

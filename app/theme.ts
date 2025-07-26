@@ -1,25 +1,28 @@
 import { createTheme, responsiveFontSizes } from '@mui/material';
 
+const primary = '#4f914d';
+const secondary = '#e0e0e0';
+
 const baseTheme = createTheme({
   palette: {
     primary: {
-      main: '#4f914d',
+      main: primary,
       contrastText: '#ffffff'
     },
     secondary: {
-      main: '#e0e0e0',
-      contrastText: '#000000'
+      main: secondary,
+      contrastText: '#212121'
     },
     background: {
-      default: '#fafafa',
-      paper: '#e0e0e0'
+      default: secondary,
+      paper: '#ffffff'
     },
     text: {
       primary: '#212121',
       secondary: '#757575'
     },
     action: {
-      active: '#4f914d'
+      active: primary
     }
   },
   typography: {
@@ -39,7 +42,6 @@ const baseTheme = createTheme({
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: '#ffffff',
           color: '#212121',
           boxShadow: '0 2px 4px -1px rgba(0,0,0,0.1)'
         }
@@ -50,6 +52,22 @@ const baseTheme = createTheme({
         containedPrimary: {
           color: '#ffffff'
         }
+      }
+    },
+    MuiTableHead: {
+      styleOverrides: {
+        root: {
+          backgroundColor: primary
+        }
+      }
+    },
+    MuiTableCell: {
+      styleOverrides: {
+        head: ({ theme }) => ({
+          backgroundColor: theme.palette.primary.main,
+          color: theme.palette.primary.contrastText,
+          fontWeight: 'bold'
+        })
       }
     }
   },

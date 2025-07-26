@@ -20,7 +20,7 @@ export const getMessages = (lang: LOCALE): Record<string, string> => {
 };
 
 export const getLocale = (): LOCALE => {
-  const browserLocale = navigator.languages[0];
+  const browserLocale = navigator.language.split('-')[0];
 
-  return Object.keys(LOCALE).includes(browserLocale) ? browserLocale as LOCALE : DEFAULT_LOCALE;
+  return Object.keys(LOCALE).includes(browserLocale.toUpperCase()) ? browserLocale as LOCALE : DEFAULT_LOCALE;
 };

@@ -1,5 +1,6 @@
 import { Search as SearchIcon } from '@mui/icons-material';
 import {
+  Avatar,
   Box,
   CircularProgress,
   ClickAwayListener,
@@ -8,15 +9,21 @@ import {
   List,
   ListItem,
   ListItemButton,
+  ListItemIcon,
   ListItemText,
   Paper,
   styled,
   Typography
 } from '@mui/material';
 import React, { type FC, useEffect, useMemo, useState } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { ModificationBy } from '~/components/dates/ModificationBy';
+import { FileIcon } from '~/components/fs/FileIcon';
 import { useSearchFsQuery } from '~/store/api/node/fs.api';
+import { FOLDER_CONTENT_TYPE } from '~/utils/constants';
 
 export const HeaderSearchbar: FC = () => {
+  const intl = useIntl();
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [isResultsOpen, setResultsOpen] = useState<boolean>(false);
 
@@ -35,10 +42,10 @@ export const HeaderSearchbar: FC = () => {
       <ClickAwayListener onClickAway={ () => setResultsOpen(false) }>
         <Search>
           <SearchIconWrapper>
-            <SearchIcon />
+            <SearchIcon/>
           </SearchIconWrapper>
           <StyledInputBase
-            placeholder='Rechercher…'
+            placeholder={ intl.formatMessage({ id: 'home.search' }) }
             inputProps={ { 'aria-label': 'search' } }
             onChange={ (e) => debouncedSetSearchTerm(e.target.value.trim()) }
             onFocus={ () => setResultsOpen(true) }
@@ -49,23 +56,42 @@ export const HeaderSearchbar: FC = () => {
                 <List dense>
                   { isLoading ? (
                     <ResultListItem>
-                      <CircularProgress size={ 24 } />
+                      <CircularProgress size={ 24 }/>
                     </ResultListItem>
                   ) : (
-                    results?.map((item) => (
-                      <ListItemButton key={ item.id } component='a' href={ `/items/${ item.id }` }>
-                        <ListItemText primary={ item.name } />
-                      </ListItemButton>
-                    ))
+                    results?.map((item) => {
+                      const modificationDate = new Date(item.modificationDate);
+                      const today = new Date();
+
+                      const modifiedToday = modificationDate.getDate() === today.getDate() &&
+                        modificationDate.getMonth() === today.getMonth() &&
+                        modificationDate.getFullYear() === today.getFullYear();
+
+                      return (
+                        <ListItemButton
+                          key={ item.id }
+                          component='a'
+                          href={ `/${ item.contentType === FOLDER_CONTENT_TYPE ? 'folder' : 'item' }/${ item.id }` }
+                        >
+                          <ListItemIcon>
+                            <Avatar>
+                              <FileIcon contentType={ item.contentType }/>
+                            </Avatar>
+                          </ListItemIcon>
+                          <ListItemText
+                            primary={ item.name }
+                            secondary={ <ModificationBy node={ item }/> }
+                          />
+                        </ListItemButton>
+                      );
+                    })
                   ) }
                   { !isLoading && results?.length === 0 && (
                     <ListItem>
                       <ListItemText
                         primary={
                           <NoResultTypo variant='body2'>
-                            Aucun résultat trouvé pour &quot;
-                            { searchTerm }
-                            &quot;
+                            <FormattedMessage id='home.search.noResult' values={ { q: searchTerm } }/>
                           </NoResultTypo>
                         }
                       />

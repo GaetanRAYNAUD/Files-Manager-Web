@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import React, { type FC, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { Link, useNavigate } from 'react-router';
 import { useLogoutMutation } from '~/store/api/auth/auth.api';
 import type { ProfileDto } from '~/store/api/user/user.type';
@@ -109,7 +110,7 @@ export const HeaderUserMenu: FC<Props> = ({ profile }) => {
           <ListItemIcon>
             <AccountCircle fontSize='small'/>
           </ListItemIcon>
-          Mon Profil
+          <FormattedMessage id='user.myProfile' />
         </MenuItem>
         <Divider/>
         <MenuItem onClick={ handleLogout } disabled={ isLoggingOut }>
@@ -120,7 +121,7 @@ export const HeaderUserMenu: FC<Props> = ({ profile }) => {
               <Logout fontSize='small'/>
             ) }
           </ListItemIcon>
-          Déconnexion
+          <FormattedMessage id='user.logout' />
         </MenuItem>
       </StyledMenu>
     </>
@@ -128,8 +129,8 @@ export const HeaderUserMenu: FC<Props> = ({ profile }) => {
 };
 
 const ProfileAvatar = styled(Avatar)`
-    height: 50px;
-    width: 50px;
+    height: 48px;
+    width: 48px;
 `;
 
 const StyledMenu = styled((props: MenuProps) => (

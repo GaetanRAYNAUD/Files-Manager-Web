@@ -10,7 +10,7 @@ export interface SsoConnectionDto {
 }
 
 export interface ProfileDto {
-  id: number;
+  id: string;
   name: string;
   image?: string;
   ssoConnections: SsoConnectionDto[];

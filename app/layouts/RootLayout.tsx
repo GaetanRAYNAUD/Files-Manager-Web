@@ -6,19 +6,22 @@ import { Header } from '~/components/header/Header';
 const RootLayout: React.FC = () => {
   return (
     <Container>
-      <Header />
+      <Header/>
       <Main>
-        <Outlet />
+        <Outlet/>
       </Main>
     </Container>
   );
 };
 
-const Container = styled('div')`
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-`;
+const Container = styled('div')(({ theme }) => (
+  {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh',
+    backgroundColor: theme.palette.background.default
+  }
+));
 
 const Main = styled('div')(({ theme }) => (
   {
