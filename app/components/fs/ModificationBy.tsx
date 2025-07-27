@@ -1,6 +1,6 @@
 import React, { type FC } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { ModificationDate } from '~/components/dates/ModificationDate';
+import { ModificationDate } from '~/components/fs/ModificationDate';
 import type { FsNodeDto } from '~/store/api/node/fs.type';
 import { useAppSelector } from '~/store/hooks';
 import { selectProfile } from '~/store/user/user.selector';

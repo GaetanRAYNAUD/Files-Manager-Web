@@ -1,7 +1,7 @@
 import type { FetchBaseQueryError, QueryReturnValue } from '@reduxjs/toolkit/query';
 import { api } from '~/store/api/api';
 import { endpoints } from '~/store/api/endpoints';
-import type { FsNodeDto, FsNodeSearch } from '~/store/api/node/fs.type';
+import type { FsNodeDto, FsNodeRename, FsNodeSearch } from '~/store/api/node/fs.type';
 
 export const fsApi = api.injectEndpoints?.({
   endpoints: (builder) => (
@@ -12,6 +12,25 @@ export const fsApi = api.injectEndpoints?.({
             url: endpoints.fs.search,
             method: 'GET',
             params
+          }
+        )
+      }),
+      rename: builder.mutation<FsNodeDto, FsNodeRename>({
+        query: ({ id, name }) => (
+          {
+            url: endpoints.fs.rename(id),
+            method: 'PUT',
+            body: {
+              name
+            }
+          }
+        )
+      }),
+      delete: builder.mutation<void, string>({
+        query: (id) => (
+          {
+            url: endpoints.fs.delete(id),
+            method: 'DELETE'
           }
         )
       }),
@@ -38,5 +57,7 @@ export const fsApi = api.injectEndpoints?.({
 export const {
   useSearchFsQuery,
   useLazySearchFsQuery,
-  useDownloadMutation
+  useDownloadMutation,
+  useRenameMutation,
+  useDeleteMutation
 } = fsApi;

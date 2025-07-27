@@ -28,6 +28,11 @@ export interface FsNodeSearch {
   sort?: SearchNodesSort;
 }
 
+export interface FsNodeRename {
+  id: string;
+  name: string;
+}
+
 export interface FsNodeDownload {
   id: string;
   inline?: boolean;

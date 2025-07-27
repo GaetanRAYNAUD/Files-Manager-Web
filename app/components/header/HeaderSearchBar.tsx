@@ -17,7 +17,7 @@ import {
 } from '@mui/material';
 import React, { type FC, useEffect, useMemo, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { ModificationBy } from '~/components/dates/ModificationBy';
+import { ModificationBy } from '~/components/fs/ModificationBy';
 import { FileIcon } from '~/components/fs/FileIcon';
 import { useSearchFsQuery } from '~/store/api/node/fs.api';
 import { FOLDER_CONTENT_TYPE } from '~/utils/constants';

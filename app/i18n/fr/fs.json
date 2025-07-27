@@ -9,7 +9,7 @@
   "fs.modification": "Modification",
   "fs.size": "Taille",
   "fs.download": "Télécharger",
-  "fs.delete": "Supprimer",
+  "fs.confirmDelete": "Cette action est irréversible. Êtes-vous certain de vouloir supprimer cet élément ?",
   "fs.rename": "Renommer",
   "fs.share": "Partager",
   "fs.move": "Déplacer"
