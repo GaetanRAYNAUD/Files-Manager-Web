@@ -12,5 +12,8 @@
   "fs.confirmDelete": "Cette action est irréversible. Êtes-vous certain de vouloir supprimer cet élément ?",
   "fs.rename": "Renommer",
   "fs.share": "Partager",
-  "fs.move": "Déplacer"
+  "fs.move": "Déplacer",
+  "fs.unknownFolder": "Dossier introuvable",
+  "fs.emptyFolder": "Ce dossier est vide",
+  "fs.uploadToFillFolder": "Commencez par importer votre premier fichier pour le voir apparaître ici."
 }

@@ -1,5 +1,11 @@
 import type { UserDto } from '~/store/api/user/user.type';
 
+export interface BreadcrumbItemDto {
+  id: string;
+  name: string;
+  owner: boolean;
+}
+
 export interface FsNodeDto {
   id: string;
   name: string;
@@ -10,6 +16,7 @@ export interface FsNodeDto {
   createdBy: UserDto;
   modificationDate: Date;
   modifiedBy: UserDto;
+  breadcrumbs?: BreadcrumbItemDto[];
 }
 
 export enum SearchNodesSort {

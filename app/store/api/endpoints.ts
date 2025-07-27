@@ -21,6 +21,6 @@ export const endpoints = {
     search: `/${ ROOT }/${ FS }`,
     download: (id: string, inline?: boolean) => `/${ ROOT }/${ FS }/${ id }/download${ inline ? '?inline=true' : '' }`,
     rename:  (id: string) => `/${ ROOT }/${ FS }/${ id }/rename`,
-    delete:  (id: string) => `/${ ROOT }/${ FS }/${ id }`,
+    one:  (id: string) => `/${ ROOT }/${ FS }/${ id }`
   }
 };

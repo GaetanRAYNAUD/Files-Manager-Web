@@ -7,6 +7,7 @@ import {
   type GridDataSource,
   type GridGetRowsParams,
   type GridRowParams,
+  type GridSortModel,
   useGridApiRef
 } from '@mui/x-data-grid-pro';
 import React, { type FC, useEffect, useMemo, useRef, useState } from 'react';
@@ -19,10 +20,11 @@ import { FileIcon } from "~/components/fs/FileIcon";
 import { useIntl } from "react-intl";
 import { FOLDER_CONTENT_TYPE } from "~/utils/constants";
 import { downloadBlob } from "~/utils/download.utils";
-import { useAppSelector } from "~/store/hooks";
-import { selectProfile } from "~/store/user/user.selector";
 import { UserAvatar } from "~/components/fs/UserAvatar";
 import { DeleteConfirmation } from './DeleteConfirmation';
+import { RenameForm } from "~/components/fs/RenameForm";
+import { useNavigate } from "react-router";
+import { EmptyFolder } from "~/components/fs/EmptyFolder";
 
 interface Props {
   folderId?: string;
@@ -34,15 +36,17 @@ interface ModalState {
 }
 
 const pageSize = 20;
+const defaultSort: GridSortModel = [{ field: 'modificationDate', sort: 'desc' }];
 
 export const NodeList: FC<Props> = ({ folderId }) => {
-  const profile = useAppSelector(selectProfile);
   const [searchFs] = useLazySearchFsQuery();
   const [downloadFile] = useDownloadMutation();
   const intl = useIntl();
+  const navigate = useNavigate();
 
   const [downloadingIds, setDownloadingIds] = useState<Set<string>>(new Set<string>());
   const [modalState, setModalState] = useState<ModalState>({ type: null, row: null });
+  const [sortModel, setSortModel] = useState<GridSortModel>(defaultSort);
 
   const gridRef = useRef<HTMLDivElement>(null);
   const apiRef = useGridApiRef();
@@ -64,7 +68,7 @@ export const NodeList: FC<Props> = ({ folderId }) => {
         }
       }
     }
-  }, []);
+  }, [folderId]);
 
   const handleDownloadClick = async (id: string, name: string) => {
     setDownloadingIds(prevIds => new Set(prevIds).add(id));
@@ -93,6 +97,20 @@ export const NodeList: FC<Props> = ({ folderId }) => {
 
     handleCloseModal();
   }
+
+  const handleCloseUpdateModal = async (row?: FsNodeDto) => {
+    if (row && apiRef.current) {
+      apiRef.current.updateRows([row]);
+    }
+
+    handleCloseModal();
+  }
+
+  const handleRowDoubleClick = (params: GridRowParams<FsNodeDto>) => {
+    if (params.row.contentType === FOLDER_CONTENT_TYPE) {
+      navigate(`/folders/${ params.row.id }`);
+    }
+  };
 
   const dataSource: GridDataSource = useMemo(
     () => ({
@@ -200,10 +218,12 @@ export const NodeList: FC<Props> = ({ folderId }) => {
         actions.push(<GridActionsCellItem icon={ <Share/> }
                                           onClick={ () => console.log('Share') }
                                           label={ intl.formatMessage({ id: 'fs.share' }) }
+                                          disabled
                                           showInMenu/>);
         actions.push(<GridActionsCellItem icon={ <DriveFileMove/> }
                                           onClick={ () => console.log('Move') }
                                           label={ intl.formatMessage({ id: 'fs.move' }) }
+                                          disabled
                                           showInMenu/>);
 
         return actions;
@@ -214,12 +234,13 @@ export const NodeList: FC<Props> = ({ folderId }) => {
       flex: 1,
       minWidth: 126
     }
-  ], [intl, downloadingIds]);
+  ], [intl, downloadingIds, folderId]);
 
   return (
     <>
       <StyledPaper elevation={ 3 }>
         <StyledDataGrid
+          key={ `node-list-${ folderId }` }
           ref={ gridRef }
           apiRef={ apiRef }
           hideFooter
@@ -228,22 +249,21 @@ export const NodeList: FC<Props> = ({ folderId }) => {
           disableColumnReorder
           disableMultipleColumnsSorting
           disableColumnResize
-          disableRowSelectionOnClick
           getRowId={ row => row.id }
+          onRowDoubleClick={ handleRowDoubleClick }
           lazyLoading
           paginationMode="server"
           dataSource={ dataSource }
           pageSizeOptions={ [pageSize] }
+          sortModel={ sortModel }
+          onSortModelChange={ (newSortModel) => setSortModel(newSortModel.length > 0 ? newSortModel : defaultSort) }
           initialState={ {
             pagination: {
               paginationModel: { pageSize, page: 0 }
-            },
-            sorting: {
-              sortModel: [{
-                field: 'modificationDate',
-                sort: 'desc',
-              }]
             }
+          } }
+          slots={ {
+            noRowsOverlay: EmptyFolder,
           } }
         />
       </StyledPaper>
@@ -255,7 +275,7 @@ export const NodeList: FC<Props> = ({ folderId }) => {
       >
         { modalState.row && (
           <>
-            {/*{ modalState.type === 'rename' && <RenameForm data={ modalState.row } onClose={ handleCloseModal }/> }*/ }
+            { modalState.type === 'rename' && <RenameForm data={ modalState.row } onClose={ handleCloseUpdateModal }/> }
             { modalState.type === 'delete' &&
               <DeleteConfirmation data={ modalState.row } onClose={ handleCloseDeleteModal }/> }
           </>

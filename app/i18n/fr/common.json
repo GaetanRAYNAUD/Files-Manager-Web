@@ -1,6 +1,8 @@
 {
   "common.cancel": "Annuler",
   "common.confirm": "Confirmer",
+  "common.save": "Sauvegarder",
+  "common.saving": "Sauvegarde...",
   "common.delete": "Supprimer",
   "common.deleting": "Suppression..."
 }

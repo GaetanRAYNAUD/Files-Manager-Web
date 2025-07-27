@@ -15,6 +15,14 @@ export const fsApi = api.injectEndpoints?.({
           }
         )
       }),
+      getFs: builder.query<FsNodeDto, string>({
+        query: (id) => (
+          {
+            url: endpoints.fs.one(id),
+            method: 'GET'
+          }
+        )
+      }),
       rename: builder.mutation<FsNodeDto, FsNodeRename>({
         query: ({ id, name }) => (
           {
@@ -29,7 +37,7 @@ export const fsApi = api.injectEndpoints?.({
       delete: builder.mutation<void, string>({
         query: (id) => (
           {
-            url: endpoints.fs.delete(id),
+            url: endpoints.fs.one(id),
             method: 'DELETE'
           }
         )
@@ -59,5 +67,6 @@ export const {
   useLazySearchFsQuery,
   useDownloadMutation,
   useRenameMutation,
-  useDeleteMutation
+  useDeleteMutation,
+  useGetFsQuery
 } = fsApi;
