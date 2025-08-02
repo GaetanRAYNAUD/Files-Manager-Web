@@ -34,6 +34,7 @@ const dynamicBaseQuery: BaseQueryFn<FetchArgs & { mock?: boolean; mockRequestTim
 
     return result;
   };
+
 export const api = createApi({
   reducerPath: 'api',
   baseQuery: dynamicBaseQuery,

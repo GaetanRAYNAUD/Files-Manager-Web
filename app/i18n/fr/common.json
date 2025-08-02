@@ -1,4 +1,6 @@
 {
+  "common.simpleTitle": "Files Manager",
+  "common.title": "{name} - Files Manager",
   "common.cancel": "Annuler",
   "common.confirm": "Confirmer",
   "common.save": "Sauvegarder",

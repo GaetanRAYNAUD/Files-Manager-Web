@@ -12,3 +12,5 @@ export const Title: FC<Props> = ({ title }) => {
     </Typography>
   );
 };
+
+export default Title;

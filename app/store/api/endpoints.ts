@@ -1,4 +1,5 @@
 import type { SupportedProvider } from '~/auth/auth.types';
+import { env } from '~/env';
 
 const ROOT = 'api';
 const PUBLIC = 'public';
@@ -24,3 +25,7 @@ export const endpoints = {
     one:  (id: string) => `/${ ROOT }/${ FS }/${ id }`
   }
 };
+
+export const getUrl = (s: string): string => {
+  return env.VITE_API_URL + s;
+}
