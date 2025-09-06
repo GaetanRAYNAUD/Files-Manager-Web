@@ -8,6 +8,7 @@ import { useDownloadMutation } from '~/store/api/node/fs.api';
 import type { FsNodeDto } from '~/store/api/node/fs.type';
 import { selectAuthExpires } from '~/store/auth/auth.selector';
 import { useAppSelector } from '~/store/hooks';
+import { isPreviewableInIFrame } from '~/utils/constants';
 import { downloadBlob } from '~/utils/download.utils';
 
 interface Props {
@@ -61,7 +62,7 @@ export const PreviewDialog: FC<Props> = ({ node, handleClose }) => {
             { node.contentType.startsWith('image/') && (
               <StyledImg src={ getUrl(endpoints.fs.download(node.id, true)) } alt={ node.name } />
             ) }
-            { node.contentType === 'application/pdf' && (
+            { isPreviewableInIFrame(node.contentType) && (
               <StyledIframe
                 src={ getUrl(endpoints.fs.download(node.id, true)) } title={ node.name }
               />
